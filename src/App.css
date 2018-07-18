@@ -1,0 +1,189 @@
+
+
+/**************************************************/
+/**
+    Leochens 2018.7.16
+*/
+
+
+/*General Begin*/
+html,body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+ul,li,ol{
+  margin: 0;padding: 0;
+  list-style: none;
+}
+/*General End*/
+
+/*Head Begin*/
+header{
+  padding: 0; 
+  width: 100%;
+  margin: 0;
+  height: 55px;
+  background-color: #303030;
+  position: fixed;
+  top: 0;
+}
+header .title{
+  color: #fff;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 15px;
+}
+.wraper{
+  float: right;
+  margin: 15px;
+}
+header .search,
+header .more{
+  
+  margin-left: 12px;;
+}
+header img{
+  width: 20px;
+  height: 20px;
+}
+/*Head End*/
+
+
+/*Message List Begin*/
+section.main{
+  width: 100%;
+  margin-top: 55px;
+}
+ul.list{
+width: 100%;
+
+}
+
+li.list_item{
+  margin: 0 ;
+  width: 100%;
+  border-bottom: 1px solid #ddd;      /*just set this side of border ENOUGH*/
+  display: flex;
+  align-items: center;
+  height: 65px;
+ 
+}
+li.list_item:hover{
+  background-color: #eee;
+}
+li.list_item span.photo{
+  display: inline-block;
+  width: 65px;
+
+  overflow: hidden;
+  margin: 10px;
+}
+.photo img{
+  width: 100%;height:100%;
+  margin-top: 3px;
+}
+li.list_item span.time{
+  float: right;
+  width:32px;
+  margin:0 20px 0 0;
+  color: #888;
+  font-size: 12px;
+}
+ul.info{
+  display: inline-block;
+  width:90%;
+}
+li.user_name{
+  font-size: 15px;
+  margin-bottom: 5px;
+  font-weight: 520;
+}
+li.content{
+  font-size: 13px;
+  margin-top: 10px;;
+  color: #888;
+}   
+/*Message List End*/
+
+
+/*Tabs Begin*/
+footer{
+  position: fixed;
+  border-top:  1px solid #ddd;
+  width: 100%;
+  height: 60px;
+  bottom: -1px;               /*hack*/
+  background-color: #fff;
+}
+ul.tab{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+}
+li.tab_item{
+ flex: 1;
+  text-align: center;
+  color: #888;
+}
+
+.tab_item:hover{
+ 
+  color: green;
+}
+/*Tabs End*/
+/******************************************************/
+
+
+
+/*Dia Begin*/
+.showPanel{
+
+  display: block;
+  width: 100%;height: 100%;
+
+}
+.hidePanel{
+  /* animation: fadeOutDown 1s forwards; */
+  display: none;
+}
+
+.panel{
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 101;
+
+}
+.panel-item{
+  position: absolute;
+  bottom: 0;
+
+  width:100%;
+  height: 30%;
+  background-color: #eee;
+  z-index: 100;
+}
+
+.btn{
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  width: 100%;
+  height:25%;
+
+  background-color: #eee;
+  padding: 0;
+  margin: 0;
+  outline:none;
+}
+.btn:hover{
+  background-color: #ddd;
+}
