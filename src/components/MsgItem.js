@@ -1,84 +1,79 @@
-import React ,{ Component } from 'react';
-import ItemControlPanleView from '../components/ItemControlPanel'
+import React, { Component } from 'react';
+import ItemControlPanel from '../components/ItemControlPanel'
 import '../App.css';
+import ACTIONS from '../constants';
+import { connect } from 'react-redux'
+
+import ITEM from '../actions/itemControlAction'
 
 
+class MsgItem extends Component {   //defualt  just only one
 
-export default class MsgItem extends Component{   //defualt  just only one
-
-    constructor(props)
-    {
-        super(props);
-        this.state={
-            itemCtrlIsActive:false,
-          
+    constructor() {
+        super();
+        this.state = {
+            itemCtrlIsActive: ACTIONS.HIDE_ALL_PANEL,
         }
-        const {isUp,item} = this.props
-
     }
-    onMsgClick=()=>{
-        const {item} = this.props;
+
+    showItemCtrlPanel = () => {
+        this.setState({ itemCtrlIsActive: ACTIONS.SHOW_ITEM_CTRL })
+    }
+    handleClickMsg = () => {
+        const { item } = this.props;
         console.log(item)
     }
-    itemControl=()=>{
-        this.showItemCtrlPanel();
+    hideItemCtrlPanel = () => {
+        this.setState({ itemCtrlIsActive: ACTIONS.HIDE_ALL_PANEL })
     }
-    showItemCtrlPanel=()=>{
-        this.setState({itemCtrlIsActive:!this.state.itemCtrlIsActive})
-      }
-
-    delMsg=()=>{
-        console.log("delMsg in MsgItem");
-        const {item,delMsg} = this.props;
-        if(delMsg)  delMsg(item.id);       //传递给父组件App 调用App的删除函数删除 state里 
+    handleDelMsg = () => {
+        const { id, handleDeleteMsg } = this.props;
+        if (handleDeleteMsg) handleDeleteMsg(id);
     }
-    upMsg=()=>{
-        console.log("upMsg in MsgItem");
-        const {item,upMsg} = this.props;
-        if(upMsg)  upMsg(item.id);  //传递给父组件App
+    handleUpMsg = () => {
+        const { handleSetTopMsg, id } = this.props;
+        if (handleSetTopMsg) handleSetTopMsg(id);
     }
 
-    getRadio(id){
-        const {delectDelIsActive} = this.props;
-        if(delectDelIsActive)  return (
-            <input className="m_radio" id={id}  type="radio" />
-        )
-    }
-    //多级调用
 
-    delSelectMsg=(id)=>{
-        console.log("delSelectMsg in MsgItem");
-        const {delectDelIsActive,showRadios} = this.props;
-        if(showRadios) showRadios();
-    }
+    render() {
+        const { item } = this.props
 
-    render(){
-        const {isUp,item} = this.props
-        let upClass ='';
-        if(isUp)
-            upClass = 'isUp '
-        console.log(this.isUp)
-        return  (
-                <li className={"list_item "+upClass} onClick={this.onMsgClick}>
-                {this.getRadio(item.id)}
-                  <span className="photo">
-                      <img className="pic" src={item.icon} alt=""/>
-                  </span>
-                  <ul className="info">
-                      <li className="user_name">{item.title}</li>
-                      <li className="content">{item.description}</li>
-                  </ul>
-                  <span className="msg-more" onClick={this.itemControl}>more</span>
-                  <span className="time">{item.time}</span>
-                  <ItemControlPanleView 
-                    isActive={this.state.itemCtrlIsActive} 
-                    onClick={this.showItemCtrlPanel} 
-                    delMsg={this.delMsg}
-                    upMsg={this.upMsg}  
-                    delSelectMsg = {this.delSelectMsg}> 
-                   </ItemControlPanleView>
-                </li>
+        return (
+            <li className={"list_item"} onClick={this.handleClickMsg}>
+                <span className="photo">
+                    <img className="pic" src={item.icon} alt="" />
+                </span>
+                <ul className="info">
+                    <li className="user_name">{item.title}</li>
+                    <li className="content">{item.description}</li>
+                </ul>
+                <span className="msg-more" onClick={this.showItemCtrlPanel}>more</span>
+                <span className="time">{item.time}</span>
+
+                <ItemControlPanel
+                    isActive={this.state.itemCtrlIsActive}
+                    close={this.hideItemCtrlPanel}
+                    handleDelMsg={this.handleDelMsg}
+                    handleUpMsg={this.handleUpMsg}
+                    handleDelSelectMsg={this.handleDelSelectMsg} />
+            </li>
 
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        itemPanelIsActive: state.panelControl.itemPanelIsActive
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleSetTopMsg: id => dispatch(ITEM.ACTION.setTopMsg(id)),
+        handleDeleteMsg: id => dispatch(ITEM.ACTION.deleteMsg(id)),
+        handleDeleteSelectMsg: ids => dispatch(ITEM.ACTION.deleteSelectMsg(ids))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MsgItem)
+
