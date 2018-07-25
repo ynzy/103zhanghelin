@@ -1,5 +1,7 @@
-export const WX = "微信"
-export const TXL = "通讯录"
-export const FX = "发现"
-export const ME = "我"
-export const DEFAULT_COLOR = ["red-spot", "blue-spot", "yellow-spot", "orange-spot"]
+const ACTIONS = {
+    HIDE_ALL_PANEL:0,
+    SHOW_ITEM_CTRL:1,
+    SHOW_ADD_PANEL:2
+}
+
+export default ACTIONS
