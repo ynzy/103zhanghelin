@@ -4,30 +4,29 @@ import ACTION_TYPES from '../const';
 
 const calcColor = (text) => {
     const x = text.split('/');
-    const a = parseInt(x[0],2);
-    const b = parseInt(x[1],2);
-    const res = a/b;
-    if(res>0.95){
-        return <div style={{color:'orange',fontWeight:600}}>{text}</div>
-    }else if(res<0.80)
-    {
-        return <div style={{color:'red',fontWeight:600}}>{text}</div>
-    }else{
+    const a = parseInt(x[0], 2);
+    const b = parseInt(x[1], 2);
+    const res = a / b;
+    if (res > 0.95) {
+        return <div style={{ color: 'orange', fontWeight: 600 }}>{text}</div>
+    } else if (res < 0.80) {
+        return <div style={{ color: 'red', fontWeight: 600 }}>{text}</div>
+    } else {
         return <div>{text}</div>
     }
 }
 const calcColor2 = text => {
     const percent = text * 100;
     if (percent > 95) {
-        return <div style={{ color: 'orange',fontWeight:600 }}>{percent + '%'}</div>
+        return <div style={{ color: 'orange', fontWeight: 600 }}>{percent + '%'}</div>
     } else if (percent < 80) {
-        return <div style={{ color: 'red' ,fontWeight:600}}>{percent + '%'}</div>
+        return <div style={{ color: 'red', fontWeight: 600 }}>{percent + '%'}</div>
     } else {
         return <div>{percent + '%'}</div>
     }
 }
 const initState = {
-    flag:false,
+    flag: false,
     headData: {
         staticInfosMap: {
             id: '学员编号',
@@ -94,7 +93,7 @@ const initState = {
                 title: '上课率',
                 dataIndex: 'studyRate',
                 key: 'studyRate',
-                render:text =>calcColor(text)
+                render: text => calcColor(text)
             },
             {
                 title: '作业提交率',
@@ -114,7 +113,7 @@ const initState = {
                 title: '打卡率',
                 dataIndex: 'clocks',
                 key: 'clocks',
-                render:text =>calcColor(text)
+                render: text => calcColor(text)
             },
             {
                 title: '满意度',
@@ -200,21 +199,21 @@ const initState = {
 
 const contentReducer = (state = initState, action) => {
 
-    switch(action.type) {
-        case ACTION_TYPES.INPUT_ACTIONS.TOGGLE_DYNAMIC_EDIT:{
-            const headData = {...state.headData};
-            
+    switch (action.type) {
+        case ACTION_TYPES.INPUT_ACTIONS.TOGGLE_DYNAMIC_EDIT: {
+            const headData = { ...state.headData };
+
             headData.dynamicInfosMap[action.id].edit = !headData.dynamicInfosMap[action.id].edit;
-            return Object.assign({},state,{
+            return Object.assign({}, state, {
                 headData
             });
         }
         case ACTION_TYPES.INPUT_ACTIONS.CHANGE_DYNAMIC_DATA: {
-            const headData = {...state.headData};
+            const headData = { ...state.headData };
             headData.dynamicInfos[action.item_id] = action.newContent;
-            headData.dynamicInfosMap[action.item_id].edit=false;
+            headData.dynamicInfosMap[action.item_id].edit = false;
             console.log(action.item_id);
-            return Object.assign({},state,{
+            return Object.assign({}, state, {
                 headData
             });
         }
