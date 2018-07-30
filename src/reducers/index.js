@@ -1,10 +1,12 @@
+import contentReducer from './content'
 import { combineReducers } from 'redux'
-import MessageReducer from './MessageReducer'
-import UIReducer from './UIReducer'
 
 
-const RootReducer = combineReducers({
-    MessageReducer,
-    UIReducer
-})
-export default RootReducer
+const RootRuducer = combineReducers({
+    contentReducer
+});
+
+export default RootRuducer;
+
+
+

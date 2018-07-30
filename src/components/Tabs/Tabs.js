@@ -1,46 +1,33 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+
+import ButtonBox from '../ButtonBox/ButtonBox';
+import Tables from '../Tables/Tables';
+import { Tabs } from 'antd';
 import './Tabs.css'
+const TabPane = Tabs.TabPane;
 
-const wx = require('./img/wx.png')
-const phone = require('./img/phone-number.png')
-const find = require('./img/find.png')
-const me = require('./img/me.png')
-
-export default class Tabs extends Component {
+export default class _Tabs extends Component {
 
     render() {
-      
+        const { headList,dataList,historyList } = this.props.tableData;
         return (
-            <footer> 
-                <ul className="tab">
-                    <li  className="tab_item">
-                        <div>
-                            <img src={wx} alt="" />
-                        </div>
-                        微信
-            </li>
-                    <li className="tab_item">
-                        <div>
-                            <img src={phone} alt="" />
-                        </div>
-                        通讯录
-            </li>
-                    <li className="tab_item">
-                        <div>
-                            <img src={find} alt="" />
-                        </div>
-                        发现
-            </li>
-                    <li className="tab_item">
-                        <div>
-                            <img src={me} alt="" />
-                        </div>
-                        我
-            </li>
-                </ul>
-            </footer>
+            <div className="Tabs">
+                <Tabs
+                    defaultActiveKey="1">
+                    <TabPane tab="课程信息" key="1">
+                        <ButtonBox />
+                        <h3 className="tabs-title">在学课程</h3>
+                        <Tables 
+                            headList={headList} 
+                            dataList = {dataList} />
+                        <h3 className="tabs-title">历史数据</h3>
+                        <Tables 
+                        headList={headList} 
+                        dataList = {historyList}/>
+                    </TabPane>
+                    <TabPane tab="满意度反馈" key="2">暂无数据</TabPane>
+                </Tabs>
+            </div>
         )
     }
-
-
 }
