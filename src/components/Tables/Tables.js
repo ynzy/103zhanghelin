@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Tables.css';
-import './Tables.less'
 import { Table } from 'antd';
 
 export default class Tables extends Component {
