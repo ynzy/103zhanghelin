@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import allActionsCreators from '../../actions'
-import { Row, Col, Table } from 'antd';
+import { Row, Col, Table, Button } from 'antd';
 import { BASIC_INFO } from '../../const/config';
 import headList from './headList';
 class StudyInfo extends Component {
@@ -27,9 +27,10 @@ class StudyInfo extends Component {
                             <span> {BASIC_INFO.STAFF} : {basic_info.real_teacher.name} </span>
                             <span> {BASIC_INFO.PERSON_ID} : {basic_info.real_teacher.mid} </span>
                             <span> {BASIC_INFO.WX_CODE} : {basic_info.real_teacher.wx_code} </span>
+                            <Button  onClick={this.props.router.goBack}>返回</Button>
                         </Row>
                         <Row>
-                            <Table 
+                            <Table
                                 dataSource={list}
                                 columns={headList}
                                 bordered

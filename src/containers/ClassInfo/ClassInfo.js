@@ -4,13 +4,26 @@ import Head from '../../components/Head/Head';
 import Tabs from '../../components/Tabs/Tabs';
 import { bindActionCreators } from 'redux';
 import allActionsCreators from '../../actions'
-import { Row, Col } from 'antd';
+import { Row, Col, message } from 'antd';
 
 class ClassInfo extends Component {
-  componentDidMount(){
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+    const { state } = this.props.location;
+    if(!state)
+    {
+      message.error("缺少必要的url参数");
+      this.props.router.goBack();
+    }
+
+  }
+  componentDidMount() {
     const { serverAction } = this.props;
-    serverAction.actionFetchUserInfo('111');
-    serverAction.actionFetchLessonInfo('111');
+    const mid = 1001;
+    serverAction.actionFetchUserInfo(mid);
+    serverAction.actionFetchLessonInfo(mid);
+    serverAction.actionFetchSatisfiedList(mid);
   }
   render() {
     return (
@@ -20,12 +33,14 @@ class ClassInfo extends Component {
             <Head
               headData={this.props.headData}
               inputAction={this.props.inputAction}
-              dispatch={this.props.dispatch}
-              dynamicInfoEditMap = {this.props.dynamicInfoEditMap}
+              dynamicInfoEditMap={this.props.dynamicInfoEditMap}
+              urlData={this.props.location.state}
             />
             <Tabs
               tableData={this.props.tableData}
-              dispatch={this.props.dispatch}
+              satisfiedList={this.props.satisfiedList}
+              back={this.props.router.goBack}
+              tableAction={this.props.tableAction}
             />
           </Col>
         </Row>
@@ -37,13 +52,15 @@ const mapStateToProps = state => {
   return {
     tableData: state.tableReducer,
     headData: state.headReducer,
-    dynamicInfoEditMap:state.headReducer.dynamicInfoEditMap,
+    satisfiedList: state.satisfiedReducer,
+    dynamicInfoEditMap: state.headReducer.dynamicInfoEditMap,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     inputAction: bindActionCreators(allActionsCreators.inputAction, dispatch),
     serverAction: bindActionCreators(allActionsCreators.serverAction, dispatch),
+    tableAction: bindActionCreators(allActionsCreators.tableAction, dispatch)
   }
 }
 
