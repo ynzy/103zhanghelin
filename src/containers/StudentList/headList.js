@@ -1,5 +1,5 @@
 import React from 'react';
-import { USER_INFO } from '../../const/config';
+import { USER_INFO } from '../../config';
 import { Avatar } from 'antd';
 import { Link } from 'react-router';
 const urlToAvatar = (url, shape, size) => {
@@ -22,15 +22,7 @@ const headList = [
     {
         title: USER_INFO.NICK,
         dataIndex: 'nick',
-        key: 'nick',
-        render: (text, record) => {
-            const data = { mid: record.mid, nick:text}
-            const path = {
-                pathname: "/classInfo",
-                state: data
-            }
-            return(<Link to={path}>{text}</Link>)
-        }
+        key: 'nick'
     },
     {
         title: USER_INFO.ID,

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Tabs, Table, Popover, Icon} from 'antd';
-import { TABS } from '../../const/config';
+import { TABS } from '../../config';
 import ButtonBox from '../ButtonBox/ButtonBox';
-import Tables from '../Tables/Tables';
-import './Tabs.css'
-import { TABLE_HEAD, BASIC_INFO } from '../../const/config';
+import Tables from '../ClassInfoTables/ClassInfoTables';
+import './ClassInfoTabs.css'
+import { TABLE_HEAD, BASIC_INFO } from '../../config';
 import { ColorText } from '../../tools/colorTools';
 import ReplyBox from '../ReplyBox/ReplyBox';
 const TabPane = Tabs.TabPane;
@@ -30,12 +30,12 @@ const TeacherInfo = (teacher) => {
 }
 
 export default class _Tabs extends Component {
-
+    rowKey = (record,i) => i
     render() {
         const {
             headList,
-            dataList,
-            historyList
+            currentLessonsList,
+            historyLessonsList
         } = this.props.tableData;
         const {
             satisfiedList,
@@ -73,12 +73,11 @@ export default class _Tabs extends Component {
                 dataIndex: 'reply_status',
                 render: (text, record) => <ReplyBox
                     text={text}
-                    editCLassId={record.class_info.id}
+                    editCLassId={record.time}
                     action={tableAction.actionToggleReply} />
             },
         ]
 
-        console.log('tabs', this.props);
         return (
             <div className="Tabs">
                 <Tabs
@@ -89,16 +88,21 @@ export default class _Tabs extends Component {
                         <h3 className="tabs-title">在学课程</h3>
                         <Tables
                             headList={headList}
-                            dataList={dataList} />
+                            dataList={currentLessonsList} 
+                            rowKey={this.rowKey}/>
                         <h3 className="tabs-title">历史数据</h3>
                         <Tables
                             headList={headList}
-                            dataList={historyList} />
+                            dataList={historyLessonsList} 
+                            rowKey={this.rowKey}/>
                     </TabPane>
                     <TabPane tab={TABS.SATIFY_FEED} key="2">
+                    <ButtonBox
+                            back={this.props.back} />
                         <Table
                             columns={columns}
                             dataSource={satisfiedList}
+                            rowKey={this.rowKey}
                         />
                     </TabPane>
                 </Tabs>

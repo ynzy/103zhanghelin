@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Head.css';
 import { Avatar, Row, Col, Icon, Input, Spin } from 'antd';
-import { USER_INFO } from '../../const/config';
+import { USER_INFO } from '../../config';
 
 export default class Head extends Component {
     constructor(props) {
@@ -13,7 +13,6 @@ export default class Head extends Component {
     }
     onInputChange = e => {
         this.tmp = e.target.value;
-        console.log(this.tmp);
     }
 
     handleChangeDynamicData = (item) => {
@@ -61,8 +60,8 @@ export default class Head extends Component {
     }
     render() {
         const { userInfo, headLoading } = this.props.headData;
+        // console.log(this.props);
         const { urlData } = this.props;
-        console.log('urlData',this.props.urlData);
         return (
 
             <div className="head">

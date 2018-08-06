@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Popover } from 'antd';
-import { TABLE_HEAD, BASIC_INFO } from '../../const/config';
+import { TABLE_HEAD, BASIC_INFO } from '../../config';
 import { ColorText } from '../../tools/colorTools';
 import {Link} from 'react-router'
 //type 1 —> 分数 2 -> 百分数 
@@ -34,7 +34,7 @@ const TeacherInfo = (teacher) => {
     return (
         <div>
             <Popover
-                trigger='click'
+                // trigger='click'
                 content={content}>
                 <Icon type="user" />
             </Popover>
@@ -51,9 +51,8 @@ export const TableList = [
             return (
                 <div>
                     <Icon type="exclamation-circle" />
-                    <Link to="/studyInfo">
+                   &nbsp;
                         {text.name}
-                    </Link>
                 </div >
             )
         }

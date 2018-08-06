@@ -1,4 +1,6 @@
-import ACTION_TYPES from '../const'
+import ACTION_TYPES from '../const';
+import { normalize } from 'normalizr';
+import Schemas from '../schema';
 const BASE_URL = 'http://xly-wkop.xiaoniangao.cn';
 export const actionFetchUserInfo = (mid) => {
     return {
@@ -18,6 +20,14 @@ export const actionFetchLessonInfo = (mid) => {
             url: BASE_URL + '/getLessonInfo',
             param: {
                 mid
+            },
+            normalizeFunc: json => {
+                const currentLessonsList = normalize(json.currentLessonsList, Schemas.lessonListSchema);
+                const historyLessonsList = normalize(json.historyLessonsList, Schemas.lessonListSchema);
+                return {
+                    currentLessonsList,
+                    historyLessonsList
+                }
             }
         }
     }
@@ -29,6 +39,13 @@ export const actionFetchStudyInfo = (id) => {
             url: BASE_URL + '/getClassInfo',
             param: {
                 id
+            },
+            normalizeFunc: json => {
+                const studyInfoList = normalize(json.list, Schemas.studyInfoListSchema);
+                return {
+                    studyInfoList,
+                    basic_info:json.basic_info
+                }
             }
         }
     }
@@ -40,6 +57,10 @@ export const actionFetchStudentList = (id) => {
             url: BASE_URL + '/getStudentList',
             param: {
                 id
+            },
+            normalizeFunc: json => {
+                const studentList = normalize(json, Schemas.studentListSchema);
+                return studentList;            
             }
         }
     }
@@ -51,6 +72,10 @@ export const actionFetchSatisfiedList = (mid) => {
             url: BASE_URL + '/getSatisfiledList',
             param: {
                 mid
+            },
+            normalizeFunc: json => {
+                const satisfiedList = normalize(json.list,Schemas.satisfiedListSchema);
+                return satisfiedList;
             }
         }
     }

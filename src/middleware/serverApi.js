@@ -1,7 +1,6 @@
 import axios from 'axios';
 //sna
-
-const callServerApi = (url, param) => {
+const callServerApi = (url, param, normalizeFunc) => {
     return new Promise((resolve, reject) => {
         axios({
             method: "POST",
@@ -9,26 +8,26 @@ const callServerApi = (url, param) => {
             url: url,
             data: param
         }).then(res => {
+            console.log('网络请求结束的最原始数据',res);
+            const json = res.data.data;
             if (res.data.ret === 1 ){
-                return resolve(res);
+                return resolve( normalizeFunc ? normalizeFunc(json) : json);
             }
             return reject(res);
         }).catch(err => {
             return reject(err);
         })
     })
-
 }
 export default store => next => action => {
-    // console.log('hello midlleware');
-    // console.log(action);
     if (!action.SERVER_API) {
         return next(action)
     }
     const {
         type,
         url,
-        param
+        param,
+        normalizeFunc
     } = action.SERVER_API;
 
     if(typeof(type)!=='string' || typeof(url)!=='string'){
@@ -41,15 +40,13 @@ export default store => next => action => {
     next({
         type: `${type}_REQ`
     })
-    return callServerApi(url,param).then(res => {
-        // console.log(res);
+    return callServerApi(url,param,normalizeFunc).then(res => {
         return next({
             type:`${type}_SUC`,
             res
         })
     }
     ).catch(err => {
-        // console.log('请求错误',err);
         return next({
             type:`${type}_FAI`,
             err
