@@ -79,15 +79,22 @@ class StudentList extends Component {
     }
 }
 const mapStateToProps = state => {
-    const { studentListReducer } = state;
-    return {
-        studentList: studentListReducer.studentIds.map(item => {
-            return {
-                ...studentListReducer.studentEntitis[item]
+    const { 
+        studentListReducer: {
+            studentIds,
+            searchResult,
+            isSearching
+        },
+        entitiesReducer: {
+            students:{
+                entities: students
             }
-        }),
-        searchResult: studentListReducer.searchResult,
-        isSearching: studentListReducer.isSearching
+        }
+    } = state;
+    return {
+        studentList: studentIds.map(id =>  students[id]),
+        searchResult,
+        isSearching
     };
 }
 const mapDispatchToProps = dispatch => {
