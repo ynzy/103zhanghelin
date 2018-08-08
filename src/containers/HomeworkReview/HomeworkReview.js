@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { Tabs, Row, Col, Input, Select, Icon, Badge } from 'antd'
+import { Tabs, Row, Col, Input, Select, Badge } from 'antd'
 import allActionCreators from '../../actions';
 import ReviewBoxList from '../../components/ReviewBoxList/ReviewBoxList';
 import { REVIEW } from '../../config';
@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 const Search = Input.Search;
 const Option = Select.Option;
 const select = (
-    <Select defaultValue="mid" style={{ width: 100 }}
+    <Select defaultValue="mid" style={{ width: 70 }}
     // onChange={}
     >
         <Option value="mid">mid</Option>
@@ -26,8 +26,7 @@ const badge = (text, count) => {
 class HomeworkReview extends Component {
     handleSearch = (id) => {
         const { searchAction } = this.props;
-        // console.log('vvvvvv', v);
-        // searchAction.actionFilterHomeworkByMid(id);
+
     }
     render() {
         console.log(this.props);
@@ -52,7 +51,7 @@ class HomeworkReview extends Component {
         return (
             <div>
                 <Row className="review-header">
-                    <Col span={8} offset={16}>
+                    <Col span={8} offset={18}>
                         <Search
                             addonBefore={select}
                             placeholder="input search text"
@@ -69,6 +68,7 @@ class HomeworkReview extends Component {
                                 <ReviewBoxList
                                     serverActions={this.props.serverActions}
                                     switchActions={this.props.switchActions}
+                                    commentActions={this.props.commentActions}
                                     filterRules={filterRules.user_unreview}
                                     data={this.props._userUnreview}
                                 />
@@ -77,6 +77,7 @@ class HomeworkReview extends Component {
                                 <ReviewBoxList
                                     serverActions={this.props.serverActions}
                                     switchActions={this.props.switchActions}
+                                    commentActions={this.props.commentActions}
                                     filterRules={filterRules.user_reviewed}
                                     data={this.props._userReviewed}
                                 />
@@ -85,6 +86,7 @@ class HomeworkReview extends Component {
                                 <ReviewBoxList
                                     serverActions={this.props.serverActions}
                                     switchActions={this.props.switchActions}
+                                    commentActions={this.props.commentActions}
                                     filterRules={filterRules.all_unreview}
                                     data={this.props._allUnreview}
                                 />
@@ -93,6 +95,7 @@ class HomeworkReview extends Component {
                                 <ReviewBoxList
                                     serverActions={this.props.serverActions}
                                     switchActions={this.props.switchActions}
+                                    commentActions={this.props.commentActions}
                                     filterRules={filterRules.all_reviewed}
                                     data={this.props._allReviewed}
                                 />
@@ -113,7 +116,7 @@ const mapEntities = (ids, entity) => {
         comments,
         homeworks
     } = entity;
-    const data = ids.map(id => { //组装
+    const data = ids.map(id => { //组装 
         const {
             classInfo: classId,
             teacherInfo: teacherId,
@@ -156,6 +159,7 @@ const mapDispatchToProps = dispatch => {
         serverActions: bindActionCreators(allActionCreators.serverAction, dispatch),
         switchActions: bindActionCreators(allActionCreators.switchAction, dispatch),
         searchAction: bindActionCreators(allActionCreators.searchAction, dispatch),
+        commentActions: bindActionCreators(allActionCreators.commentAction, dispatch)
 
     }
 }

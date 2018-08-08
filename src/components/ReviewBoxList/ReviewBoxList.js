@@ -8,17 +8,21 @@ export default class ReviewBoxList extends Component {
         serverActions.actionFetchHomeworkList(filterRules)
     }
     render() {
-        const { data, serverActions , switchActions} = this.props;
+        const { data, 
+            serverActions, 
+            switchActions,
+            commentActions
+        } = this.props;
         return (
             <div>
                 <List
                     size="small"
-                    bordered
                     dataSource={data}
                     renderItem={item =>
                         <ReviewBox
                             serverActions={serverActions}
                             switchActions={switchActions}
+                            commentActions={commentActions}
                             data={item} />}
                 />
             </div>

@@ -3,10 +3,12 @@
     overflow: hidden;
     min-height: 60px;
     padding: 10px;
+    font-size: 12px;
     border-bottom: 1px solid #ddd;
 }
 .comment-list{
-    min-height: 375px;;
+    height: 405px;
+
     overflow-y: scroll;
 }
 .comment-time{
@@ -18,4 +20,9 @@
 .comment-content{
     margin-top: 10px;
     font-weight: 500;
+    overflow: hidden;
+}
+.reject-comment{
+    color: red;
+    float: right;
 }
