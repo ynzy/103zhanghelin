@@ -3,7 +3,9 @@ import classInfoReducer from './classInfo'
 import studyInfoReducer from './studyInfo'
 import studentListReducer from './studentList'
 import entitiesReducer from './entities';
-import homeworkReviewReducer from './homeworkReview'
+import homeworkReviewReducer from './homeworkReview';
+import AuthorityConfigReducer from './AuthorityConfig';
+import UserSelectReducer from './userSelect';
 
 
 const RootRuducer = combineReducers({
@@ -11,7 +13,9 @@ const RootRuducer = combineReducers({
     classInfoReducer,
     studyInfoReducer,
     studentListReducer,
-    homeworkReviewReducer
+    homeworkReviewReducer,
+    AuthorityConfigReducer,
+    UserSelectReducer
 });
 
 
