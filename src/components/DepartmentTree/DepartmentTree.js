@@ -13,35 +13,36 @@ export default class DepartmentTree extends Component {
                 actionSelectDepartment
             }
         } = this.props;
+        console.log(selectedKeys);
         actionSelectDepartment &&
             actionSelectDepartment(parseInt(selectedKeys))
     }
 
     //递归输出树节点
-    loop = data => data.map((item) => {
-        if (!item) return null;
-        if (item.childs && item.childs.length) {
-            return <TreeNode
-                key={item.id}
-                title={item.name}
-                users={item.users}
-            >{this.loop(item.childs)}</TreeNode>;
-        }
-        return <TreeNode key={item.id} title={item.name} />
-    });
+    loop = (data) => {
+        return data.map((item) => {
+            if (!item) return null;
+            if (item.children && item.children.length) {
+                return <TreeNode
+                    key={item.id}
+                    title={item.name}
+                >{this.loop(item.children)}</TreeNode>;
+            }
+            return <TreeNode key={item.id} title={item.name} />
+        })
+    }
     render() {
         const { departmentTree } = this.props;
-        console.log('departmentTree', departmentTree);
-
-        //拿到树的根节点的id作为默认展开项
-        const defaultExpandedKeys = departmentTree
-            ? departmentTree.id.toString()
-            : null
+        // const { id } = departmentTree;
+        // //拿到树的根节点的id作为默认展开项
+        // const defaultExpandedKeys = id
+        //     ? id.toString()
+        //     : null
         return (
             <div>
                 <Tree
                     showLine
-                    defaultExpandedKeys={[defaultExpandedKeys]}
+                    defaultExpandedKeys={['101']}
                     onSelect={this.onSelect}
                 >
                     {!departmentTree
