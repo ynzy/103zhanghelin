@@ -1,20 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store/store'
 import { Router, browserHistory } from 'react-router';
-import routes from './routes';
-import { isTest } from './config';      //测试模式
-//测试文件
-import Test from './test/test.js'
-ReactDOM.render(
-    <Provider store={store}>
-        {
-            isTest ?
-            <Test /> :
-            <Router routes={routes} history={browserHistory} />
-        }
-    </Provider>,
-    document.getElementById('root'));
+import configureStore from './store/configureStore';
+import registerServiceWorker from './registerServiceWorker';
+
+import AppRoutes from './routes';
+
+const store = configureStore();
+render(
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      {AppRoutes()}
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+);
+
 registerServiceWorker();

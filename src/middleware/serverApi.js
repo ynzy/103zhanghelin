@@ -1,56 +1,59 @@
 import axios from 'axios';
-//sna
-const callServerApi = (url, param, normalizeFunc) => {
-    return new Promise((resolve, reject) => {
-        axios({
-            method: "POST",
-            headers: { 'content-type': 'application/x-www-form-urlencoded' },
-            url: url,
-            data: param
-        }).then(res => {
-            console.log('网络请求结束的最原始数据',res);
-            const json = res.data.data;
-            if (res.data.ret === 1 ){
-                return resolve( normalizeFunc ? normalizeFunc(json) : json);
-            }
-            return reject(res);
-        }).catch(err => {
-            return reject(err);
-        })
-    })
-}
+
+const API_DOMAIN = 'http://xly-wkop.xiaoniangao.cn';
+
+const callServerApi = (endpoint, params, normalizeFuc) => new Promise((resolve, reject) => {
+  axios({
+    method: 'POST',
+    url: API_DOMAIN + endpoint,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: params
+  }).then(res => {
+    if (res.data.ret === 1) {
+      return resolve(normalizeFuc ? normalizeFuc(res.data.data) : res.data.data);
+    }
+    return reject(new Error(res.data.errMsg));
+  }).catch(err => reject(err));
+});
+
+/* eslint-disable no-unused-vars */
 export default store => next => action => {
-    if (!action.SERVER_API) {
-        return next(action)
-    }
-    const {
-        type,
-        url,
-        param,
-        normalizeFunc
-    } = action.SERVER_API;
+  if (!action.SERVER_API) {
+    return next(action);
+  }
+  const {
+    type,
+    endpoint,
+    params,
+    normalizeFuc
+  } = action.SERVER_API;
 
-    if(typeof(type)!=='string' || typeof(url)!=='string'){
-        throw new Error('type 和 url 必须为字符串')
-    }
-    if(typeof(param)!=='object'){
-        throw new Error('param必须为对象')
-    }
+  if (typeof type !== 'string') {
+    throw new Error('type shoudle be a string');
+  }
+  if (typeof endpoint !== 'string') {
+    throw new Error('endpoint shoudle be a string');
+  }
+  if (typeof params !== 'object') {
+    throw new Error('params shoudle be a object');
+  }
 
-    next({
-        type: `${type}_REQ`
-    })
-    return callServerApi(url,param,normalizeFunc).then(res => {
-        return next({
-            type:`${type}_SUC`,
-            res
-        })
-    }
-    ).catch(err => {
-        return next({
-            type:`${type}_FAI`,
-            err
-        })
+  next({
+    type: `${type}_REQ`
+  });
+
+  return callServerApi(endpoint, params, normalizeFuc)
+    .then(response => {
+      next({
+        type: `${type}_SUC`,
+        response
+      });
+    }).catch(err => {
+      next({
+        type: `${type}_FAI`,
+        errMsg: err.errMsg
+      });
     });
 };
-

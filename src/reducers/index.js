@@ -1,25 +1,8 @@
-import { combineReducers } from 'redux'
-import classInfoReducer from './classInfo'
-import studyInfoReducer from './studyInfo'
-import studentListReducer from './studentList'
-import entitiesReducer from './entities';
-import homeworkReviewReducer from './homeworkReview';
-import AuthorityConfigReducer from './AuthorityConfig';
-import UserSelectReducer from './userSelect';
+import { combineReducers } from 'redux';
+import reward from './reward'; // 游戏主reducer
+import game from './game'; // 奖励处理
 
-
-const RootRuducer = combineReducers({
-    entitiesReducer,
-    classInfoReducer,
-    studyInfoReducer,
-    studentListReducer,
-    homeworkReviewReducer,
-    AuthorityConfigReducer,
-    UserSelectReducer
+export default combineReducers({
+  game,
+  reward
 });
-
-
-export default RootRuducer;
-
-
-

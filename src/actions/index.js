@@ -1,21 +1,32 @@
-import * as inputAction from './inputAction';
-import * as serverAction from './serverActions';
-import * as searchAction from './searchAction';
-import * as tableAction from './tableAction';
-import * as switchAction from './switchAction';
-import * as commentAction from './commentAction';
-import * as selectAction from './selectAction';
-const Actions = {
-    inputAction,
-    serverAction,
-    searchAction,
-    tableAction,
-    switchAction,
-    commentAction,
-    selectAction
-}
+import * as ActionTypes from '../const/ActionTypes';
 
-export default Actions;
+export const actionInitSquareMap = () => {
+  return {
+    type: ActionTypes.INIT_SQUARE_MAP
+  };
+};
 
+export const actionMoveByDirections = key => {
+  return {
+    type: ActionTypes.MOVE_BY_DIRECTIONS,
+    key
+  };
+};
 
+export const actionIncreaseLevel = () => {
+  return {
+    type: ActionTypes.INCREASE_LEVEL
+  };
+};
 
+export const actionResetLevel = () => {
+  return {
+    type: ActionTypes.RESET_LEVEL
+  };
+};
+
+export const actionDestroySquare = () => {
+  return {
+    type: ActionTypes.DESTROY_SQUARE
+  };
+};
