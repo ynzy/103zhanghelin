@@ -1,8 +1,24 @@
-import { combineReducers } from 'redux';
-import reward from './reward'; // 游戏主reducer
-import game from './game'; // 奖励处理
+import { combineReducers } from 'redux-immutable';
+import crossReducer from './cross';
+import entities from './entities';
+import musicManage from './musicManage';
+import login from './login';
+import ui from './ui';
+import audio from './audio';
 
-export default combineReducers({
-  game,
-  reward
+const combineReducer = combineReducers({
+  entities,
+  musicManage,
+  login,
+  ui,
+  audio
 });
+
+const RootReducer = (state, action) => {
+  const tempState = combineReducer(state, action);
+  const finalState = crossReducer(tempState, action);
+  return finalState;
+};
+
+
+export default RootReducer;

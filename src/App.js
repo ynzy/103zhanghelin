@@ -1,12 +1,17 @@
-import React from 'react';
-import 'antd/dist/antd.css';
+import React, { Component } from 'react';
+// import logo from './logo.svg';
+import './App.css';
 
-export default class App extends React.PureComponent {
+class App extends Component {
+  state = {};
+
   render() {
     return (
       <div>
-        { this.props.children }
+        {this.props.children}
       </div>
     );
   }
 }
+
+export default App;

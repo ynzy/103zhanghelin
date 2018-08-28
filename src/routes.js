@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './App';
-import GameHome from './containers/GameHome';
+import AppMain from './containers/AppMain/AppMain';
+
 
 const AppRoutes = () => (
   <Route path="/" component={App}>
-    <IndexRoute component={GameHome} />
+    <IndexRoute component={AppMain} />
   </Route>
 );
 
